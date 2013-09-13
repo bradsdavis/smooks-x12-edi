@@ -1,0 +1,78 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>org.jboss</groupId>
+	<artifactId>smooks-x12-edi</artifactId>
+	<version>0.0.1</version>
+	<name>Smooks X12 EDI</name>
+
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.milyn</groupId>
+				<artifactId>maven-ejc-plugin</artifactId>
+				<version>1.5</version> <!-- base pom version - do not remove this comment -->
+				<configuration>
+					<ediMappingFile>src/main/resources/edi-810.xml</ediMappingFile>
+					<packageName>com.acme.order.model</packageName>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.milyn</groupId>
+			<artifactId>milyn-smooks-edi</artifactId>
+			<version>1.5.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.milyn</groupId>
+			<artifactId>milyn-smooks-javabean</artifactId>
+			<version>1.5.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.sun.xml.bind</groupId>
+			<artifactId>jaxb-impl</artifactId>
+			<version>2.2.8-b01</version>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.11</version>
+		</dependency>
+	</dependencies>
+
+	<repositories>
+
+		<repository>
+			<releases>
+				<enabled>false</enabled>
+				<updatePolicy>always</updatePolicy>
+				<checksumPolicy>warn</checksumPolicy>
+			</releases>
+			<snapshots>
+				<enabled>true</enabled>
+				<updatePolicy>never</updatePolicy>
+				<checksumPolicy>fail</checksumPolicy>
+			</snapshots>
+			<id>codehausSnapshots</id>
+			<name>Codehaus Snapshots</name>
+			<url>http://snapshots.maven.codehaus.org/maven2</url>
+			<layout>default</layout>
+		</repository>
+
+	</repositories>
+</project>

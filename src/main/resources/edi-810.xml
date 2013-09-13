@@ -1,0 +1,180 @@
+<medi:edimap xmlns:medi="http://www.milyn.org/schema/edi-message-mapping-1.3.xsd"  >
+
+	<medi:description name="810 Invoice" version="1.0" />
+
+	<medi:delimiters segment="&#10;" field="*" component="^" sub-component="~" />
+
+
+<!-- 
+
+C Conditional 
+M Mandatory 
+U Used 
+O Optional
+X Relational
+
+AN Alpha Numeric
+DT Date, in the form of YYMMDD
+ID Identifier or Qualifier
+Nx Numeric, ‘x’ is the number of decimal positions
+R Decimal, with the decimal point included
+TM Time, in the form of HHMM
+
+
+ -->
+	<medi:segments xmltag="Invoice">
+
+		<medi:segment xmltag="transaction-set-header" segcode="ST">
+			<medi:field xmltag="transaction-set-identifier" required="true" type="String" minLength="3" maxLength="3"/>
+			<medi:field xmltag="transaction-set-control-number" required="true" type="String" minLength="4" maxLength="9"/>
+		</medi:segment>
+		
+		<medi:segment xmltag="beginning-segment" segcode="BIG">
+			<medi:field xmltag="invoice-date" required="true" type="Date" typeParameters="format=yyyyMMdd" />
+			<medi:field xmltag="invoice-number" required="true" type="String" minLength="1" maxLength="22"/>
+			<medi:field xmltag="po-date" required="false" type="Date" typeParameters="format=yyyyMMdd"/> <!-- Reference Numbers -->
+			<medi:field xmltag="po-number" required="true" type="String" minLength="1" maxLength="22"/>
+			<medi:field xmltag="transaction-type-code" required="true" type="String" minLength="2" maxLength="2"/>
+		</medi:segment>
+
+		<medi:segment xmltag="note" segcode="NTE">
+			<medi:field xmltag="note-reference-code" required="false" type="String" minLength="3" maxLength="3"/>
+			<medi:field xmltag="description" required="true" type="String" minLength="1" maxLength="80"/>
+		</medi:segment>
+
+		<medi:segment xmltag="currency" segcode="CUR">
+			<medi:field xmltag="entity-identifier-code" required="true" type="String" minLength="2" maxLength="3"/>
+			<medi:field xmltag="currency-code" required="true" type="String" minLength="3" maxLength="3"/>
+		</medi:segment>
+
+		<medi:segment xmltag="reference-number" segcode="REF">
+			<medi:field xmltag="reference-number-qualifier" required="true" type="String" minLength="2" maxLength="3"/>
+			<medi:field xmltag="reference-number" required="true" type="String" minLength="1" maxLength="30"/>
+		</medi:segment>
+
+		<medi:segment xmltag="administrative-communications-contact" segcode="PER">
+			<medi:field xmltag="contact-function-code" required="true" type="String" minLength="2" maxLength="2"/>
+			<medi:field xmltag="name" required="true" type="String" minLength="1" maxLength="60"/>
+			<medi:field xmltag="communication-number-qualifier" required="true" type="String" minLength="2" maxLength="2"/>
+			<medi:field xmltag="communication-number" required="true" type="String" minLength="1" maxLength="80"/>
+		</medi:segment>
+
+		<medi:segment xmltag="name" segcode="N1">
+			<medi:field xmltag="organization-type" required="true" type="String" minLength="2" maxLength="3"/>
+			<medi:field xmltag="name" required="true" type="String" minLength="1" maxLength="60"/>
+			<medi:field xmltag="id-code-qualifier" required="true" type="String" minLength="1" maxLength="2"/>
+			<medi:field xmltag="id-code" required="true" type="String" minLength="1" maxLength="80"/>
+		</medi:segment>
+		
+		<medi:segment xmltag="additional-name" segcode="N2">
+			<medi:field xmltag="name1" required="true" type="String" minLength="1" maxLength="60"/>
+			<medi:field xmltag="name2" required="false" type="String" minLength="1" maxLength="60"/>
+		</medi:segment>
+
+		<medi:segment xmltag="address-information" segcode="N3">
+			<medi:field xmltag="address1" required="true" type="String" minLength="1" maxLength="55"/>
+			<medi:field xmltag="address2" required="false" type="String" minLength="1" maxLength="55"/>
+		</medi:segment>
+
+		<medi:segment xmltag="geographic-location" segcode="N3">
+			<medi:field xmltag="city-name" required="false" type="String" minLength="2" maxLength="30"/>
+			<medi:field xmltag="state-code" required="false" type="String" minLength="2" maxLength="2"/>
+			<medi:field xmltag="postal-code" required="false" type="String" minLength="3" maxLength="15"/>
+			<medi:field xmltag="country-code" required="false" type="String" minLength="2" maxLength="3"/>
+			<medi:field xmltag="location-qualifier" required="false" type="String" minLength="1" maxLength="2"/>
+			<medi:field xmltag="location-identifier" required="false" type="String" minLength="1" maxLength="30"/>
+		</medi:segment>
+
+		<medi:segment xmltag="terms-of-sale" segcode="ITD">
+			<medi:field xmltag="terms-type-code" required="false" type="String" minLength="2" maxLength="2"/>
+			<medi:field xmltag="terms-basis-date-code" required="false" type="String" minLength="1" maxLength="2"/>
+			<medi:field xmltag="terms-discount-percent" required="false" type="Double" minLength="1" maxLength="6"/>
+			<medi:field xmltag="terms-discount-due-date" required="true" type="Date" typeParameters="format=yyyyMMdd"/>
+			<medi:field xmltag="terms-discount-days-due" required="true" type="Integer" minLength="1" maxLength="3"/>
+			
+			<medi:field xmltag="terms-net-due-date" required="false" type="Date" typeParameters="format=yyyyMMdd"/>
+			<medi:field xmltag="terms-net-days" required="false" type="Integer" minLength="1" maxLength="3"/>
+			<medi:field xmltag="terms-discount-amount" required="false" type="BigDecimal" minLength="1" maxLength="10">
+				<!-- <jb:decodeParam name="format">########.##</jb:decodeParam> -->
+			</medi:field>			
+			<medi:field xmltag="description" required="false" type="String" minLength="1" maxLength="80"/>
+		</medi:segment>
+		
+		<medi:segment xmltag="date-time-reference" segcode="DTM">
+			<medi:field xmltag="date-time-qualifier" required="true" type="String" minLength="3" maxLength="3"/>
+			<medi:field xmltag="date" required="true" type="Date" typeParameters="format=yyyyMMdd" />
+		</medi:segment>
+
+		<medi:segment xmltag="carrier-detail" segcode="CAD">
+			<medi:field xmltag="type-code" required="true" type="String" minLength="1" maxLength="2"/>
+			<medi:field xmltag="standard-carrier-alpha-code" required="true" type="String" minLength="2" maxLength="4"/>
+			<medi:field xmltag="routing" required="true" type="String" minLength="1" maxLength="35"/>
+			<medi:field xmltag="routing-number-qualifier" required="false" type="String" minLength="1" maxLength="3"/>
+			<medi:field xmltag="reference-number" required="true" type="String" minLength="1" maxLength="30"/>
+		</medi:segment>
+		
+
+		<medi:segment xmltag="spac-information" segcode="SAC"> <!-- Space, Promotion, Allowance, or Charge Information -->
+			<medi:field xmltag="allowance-charge-indicator" required="true" type="String" minLength="1" maxLength="1"/>
+			<medi:field xmltag="spac-code" required="true" type="String" minLength="4" maxLength="4"/>
+			<medi:field xmltag="amount" required="false" type="BigDecimal" minLength="1" maxLength="15">
+				<!-- <jb:decodeParam name="format">############.##</jb:decodeParam> -->
+			</medi:field>			
+			<medi:field xmltag="method-handling-code" required="false" type="String" minLength="2" maxLength="2"/>
+		</medi:segment>
+		
+		<medi:segment xmltag="subline-item-detail" segcode="SLN"> 
+			<medi:field xmltag="element-name" required="true" type="String" minLength="1" maxLength="20"/>
+			<medi:field xmltag="relationship-code" required="true" type="String" minLength="1" maxLength="1"/>
+			<medi:field xmltag="quantity" required="true" type="BigDecimal" minLength="1" maxLength="15"/>			
+			<medi:field xmltag="unit-of-measure" required="true" type="String" minLength="2" maxLength="2"/>
+			<medi:field xmltag="product-id-qualifier" required="true" type="String" minLength="2" maxLength="2"/>
+			<medi:field xmltag="product-id" required="true" type="String" minLength="1" maxLength="48"/>
+		</medi:segment>
+		
+		
+		<medi:segment xmltag="total-monetary-value-summary" segcode="TDS"> 
+			<medi:field xmltag="total-invoice-amount" required="true" type="BigDecimal" minLength="1" maxLength="15">
+				<!-- <jb:decodeParam name="format">############.##</jb:decodeParam> -->
+			</medi:field>
+			<medi:field xmltag="terms-discount-calculated" required="false" type="BigDecimal" minLength="1" maxLength="15">
+				<!--<jb:decodeParam name="format">############.##</jb:decodeParam>-->
+			</medi:field>
+			<medi:field xmltag="discount-amount-due" required="false" type="BigDecimal" minLength="1" maxLength="15">
+				<!--<jb:decodeParam name="format">############.##</jb:decodeParam>-->
+			</medi:field>
+			<medi:field xmltag="terms-discount-acount" required="true" type="BigDecimal" minLength="1" maxLength="15">
+				<!-- <jb:decodeParam name="format">############.##</jb:decodeParam>--> 
+			</medi:field>
+		</medi:segment>
+		
+		<medi:segment xmltag="tax-information" segcode="TXI"> 
+			<medi:field xmltag="tax-type-code" required="true" type="String" minLength="2" maxLength="2"/>
+			<medi:field xmltag="monetary-amount" required="true" type="BigDecimal" minLength="1" maxLength="18">
+				 <!-- <jb:decodeParam name="format">############.##</jb:decodeParam> -->
+			</medi:field>
+			<medi:field xmltag="percentage" required="true" type="String" minLength="1" maxLength="10"/>
+			<medi:field xmltag="tax-jurisdiction-code-qualifier" required="true" type="String" minLength="2" maxLength="2"/>
+			<medi:field xmltag="tax-jurisdiction-code" required="true" type="String" minLength="1" maxLength="10"/>
+			<medi:field xmltag="tax-jurisdiction-code-qualifier" required="true" type="String" minLength="2" maxLength="2"/>
+			<medi:field xmltag="tax-exempt-code" required="true" type="String" minLength="1" maxLength="1"/>
+		</medi:segment>
+		
+		<medi:segment xmltag="invoice-shipment-summary" segcode="ISS"> 
+			<medi:field xmltag="number-of-units-shipped" required="true" type="BigDecimal" minLength="1" maxLength="10"/>
+			<medi:field xmltag="number-uom" required="true" type="String" minLength="2" maxLength="2"/>
+			<medi:field xmltag="weight" required="true" type="BigDecimal" minLength="1" maxLength="10"/>
+			<medi:field xmltag="weight-uom" required="true" type="String" minLength="2" maxLength="2"/>
+		</medi:segment>
+			
+		<medi:segment xmltag="transaction-totals" segcode="CTT"> 
+			<medi:field xmltag="number-of-line-items" required="true" type="BigInteger" minLength="1" maxLength="6"/>
+		</medi:segment>
+		
+		<medi:segment xmltag="transaction-set-trailer" segcode="CTT"> 
+			<medi:field xmltag="segments-in-transaction" required="true" type="BigInteger" minLength="1" maxLength="6"/>
+			<medi:field xmltag="transaction-set-control" required="true" type="String" minLength="4" maxLength="9"/>
+		</medi:segment>
+	</medi:segments>
+	
+</medi:edimap>

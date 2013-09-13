@@ -1,0 +1,121 @@
+<medi:edimap xmlns:medi="http://www.milyn.org/schema/edi-message-mapping-1.5.xsd">
+    <medi:description name="810 Invoice" version="1.0"/>
+    <medi:delimiters component="^" field="*" segment="&#10;" sub-component="~"/>
+    <medi:segments xmltag="Invoice">
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="ST" truncatable="false" xmltag="transaction-set-header">
+            <medi:field dataType="String" maxLength="3" minLength="3" required="true" truncatable="false" xmltag="transaction-set-identifier"/>
+            <medi:field dataType="String" maxLength="9" minLength="4" required="true" truncatable="false" xmltag="transaction-set-control-number"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="BIG" truncatable="false" xmltag="beginning-segment">
+            <medi:field dataType="Date" dataTypeParameters="format=yyyyMMdd" required="true" truncatable="false" xmltag="invoice-date"/>
+            <medi:field dataType="String" maxLength="22" minLength="1" required="true" truncatable="false" xmltag="invoice-number"/>
+            <medi:field dataType="Date" dataTypeParameters="format=yyyyMMdd" required="false" truncatable="false" xmltag="po-date"/>
+            <medi:field dataType="String" maxLength="22" minLength="1" required="true" truncatable="false" xmltag="po-number"/>
+            <medi:field dataType="String" maxLength="2" minLength="2" required="true" truncatable="false" xmltag="transaction-type-code"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="NTE" truncatable="false" xmltag="note">
+            <medi:field dataType="String" maxLength="3" minLength="3" required="false" truncatable="false" xmltag="note-reference-code"/>
+            <medi:field dataType="String" maxLength="80" minLength="1" required="true" truncatable="false" xmltag="description"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="CUR" truncatable="false" xmltag="currency">
+            <medi:field dataType="String" maxLength="3" minLength="2" required="true" truncatable="false" xmltag="entity-identifier-code"/>
+            <medi:field dataType="String" maxLength="3" minLength="3" required="true" truncatable="false" xmltag="currency-code"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="REF" truncatable="false" xmltag="reference-number">
+            <medi:field dataType="String" maxLength="3" minLength="2" required="true" truncatable="false" xmltag="reference-number-qualifier"/>
+            <medi:field dataType="String" maxLength="30" minLength="1" required="true" truncatable="false" xmltag="reference-number"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="PER" truncatable="false" xmltag="administrative-communications-contact">
+            <medi:field dataType="String" maxLength="2" minLength="2" required="true" truncatable="false" xmltag="contact-function-code"/>
+            <medi:field dataType="String" maxLength="60" minLength="1" required="true" truncatable="false" xmltag="name"/>
+            <medi:field dataType="String" maxLength="2" minLength="2" required="true" truncatable="false" xmltag="communication-number-qualifier"/>
+            <medi:field dataType="String" maxLength="80" minLength="1" required="true" truncatable="false" xmltag="communication-number"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="N1" truncatable="false" xmltag="name">
+            <medi:field dataType="String" maxLength="3" minLength="2" required="true" truncatable="false" xmltag="organization-type"/>
+            <medi:field dataType="String" maxLength="60" minLength="1" required="true" truncatable="false" xmltag="name"/>
+            <medi:field dataType="String" maxLength="2" minLength="1" required="true" truncatable="false" xmltag="id-code-qualifier"/>
+            <medi:field dataType="String" maxLength="80" minLength="1" required="true" truncatable="false" xmltag="id-code"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="N2" truncatable="false" xmltag="additional-name">
+            <medi:field dataType="String" maxLength="60" minLength="1" required="true" truncatable="false" xmltag="name1"/>
+            <medi:field dataType="String" maxLength="60" minLength="1" required="false" truncatable="false" xmltag="name2"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="N3" truncatable="false" xmltag="address-information">
+            <medi:field dataType="String" maxLength="55" minLength="1" required="true" truncatable="false" xmltag="address1"/>
+            <medi:field dataType="String" maxLength="55" minLength="1" required="false" truncatable="false" xmltag="address2"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="N3" truncatable="false" xmltag="geographic-location">
+            <medi:field dataType="String" maxLength="30" minLength="2" required="false" truncatable="false" xmltag="city-name"/>
+            <medi:field dataType="String" maxLength="2" minLength="2" required="false" truncatable="false" xmltag="state-code"/>
+            <medi:field dataType="String" maxLength="15" minLength="3" required="false" truncatable="false" xmltag="postal-code"/>
+            <medi:field dataType="String" maxLength="3" minLength="2" required="false" truncatable="false" xmltag="country-code"/>
+            <medi:field dataType="String" maxLength="2" minLength="1" required="false" truncatable="false" xmltag="location-qualifier"/>
+            <medi:field dataType="String" maxLength="30" minLength="1" required="false" truncatable="false" xmltag="location-identifier"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="ITD" truncatable="false" xmltag="terms-of-sale">
+            <medi:field dataType="String" maxLength="2" minLength="2" required="false" truncatable="false" xmltag="terms-type-code"/>
+            <medi:field dataType="String" maxLength="2" minLength="1" required="false" truncatable="false" xmltag="terms-basis-date-code"/>
+            <medi:field dataType="Double" maxLength="6" minLength="1" required="false" truncatable="false" xmltag="terms-discount-percent"/>
+            <medi:field dataType="Date" dataTypeParameters="format=yyyyMMdd" required="true" truncatable="false" xmltag="terms-discount-due-date"/>
+            <medi:field dataType="Integer" maxLength="3" minLength="1" required="true" truncatable="false" xmltag="terms-discount-days-due"/>
+            <medi:field dataType="Date" dataTypeParameters="format=yyyyMMdd" required="false" truncatable="false" xmltag="terms-net-due-date"/>
+            <medi:field dataType="Integer" maxLength="3" minLength="1" required="false" truncatable="false" xmltag="terms-net-days"/>
+            <medi:field dataType="BigDecimal" maxLength="10" minLength="1" required="false" truncatable="false" xmltag="terms-discount-amount"/>
+            <medi:field dataType="String" maxLength="80" minLength="1" required="false" truncatable="false" xmltag="description"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="DTM" truncatable="false" xmltag="date-time-reference">
+            <medi:field dataType="String" maxLength="3" minLength="3" required="true" truncatable="false" xmltag="date-time-qualifier"/>
+            <medi:field dataType="Date" dataTypeParameters="format=yyyyMMdd" required="true" truncatable="false" xmltag="date"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="CAD" truncatable="false" xmltag="carrier-detail">
+            <medi:field dataType="String" maxLength="2" minLength="1" required="true" truncatable="false" xmltag="type-code"/>
+            <medi:field dataType="String" maxLength="4" minLength="2" required="true" truncatable="false" xmltag="standard-carrier-alpha-code"/>
+            <medi:field dataType="String" maxLength="35" minLength="1" required="true" truncatable="false" xmltag="routing"/>
+            <medi:field dataType="String" maxLength="3" minLength="1" required="false" truncatable="false" xmltag="routing-number-qualifier"/>
+            <medi:field dataType="String" maxLength="30" minLength="1" required="true" truncatable="false" xmltag="reference-number"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="SAC" truncatable="false" xmltag="spac-information">
+            <medi:field dataType="String" maxLength="1" minLength="1" required="true" truncatable="false" xmltag="allowance-charge-indicator"/>
+            <medi:field dataType="String" maxLength="4" minLength="4" required="true" truncatable="false" xmltag="spac-code"/>
+            <medi:field dataType="BigDecimal" maxLength="15" minLength="1" required="false" truncatable="false" xmltag="amount"/>
+            <medi:field dataType="String" maxLength="2" minLength="2" required="false" truncatable="false" xmltag="method-handling-code"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="SLN" truncatable="false" xmltag="subline-item-detail">
+            <medi:field dataType="String" maxLength="20" minLength="1" required="true" truncatable="false" xmltag="element-name"/>
+            <medi:field dataType="String" maxLength="1" minLength="1" required="true" truncatable="false" xmltag="relationship-code"/>
+            <medi:field dataType="BigDecimal" maxLength="15" minLength="1" required="true" truncatable="false" xmltag="quantity"/>
+            <medi:field dataType="String" maxLength="2" minLength="2" required="true" truncatable="false" xmltag="unit-of-measure"/>
+            <medi:field dataType="String" maxLength="2" minLength="2" required="true" truncatable="false" xmltag="product-id-qualifier"/>
+            <medi:field dataType="String" maxLength="48" minLength="1" required="true" truncatable="false" xmltag="product-id"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="TDS" truncatable="false" xmltag="total-monetary-value-summary">
+            <medi:field dataType="BigDecimal" maxLength="15" minLength="1" required="true" truncatable="false" xmltag="total-invoice-amount"/>
+            <medi:field dataType="BigDecimal" maxLength="15" minLength="1" required="false" truncatable="false" xmltag="terms-discount-calculated"/>
+            <medi:field dataType="BigDecimal" maxLength="15" minLength="1" required="false" truncatable="false" xmltag="discount-amount-due"/>
+            <medi:field dataType="BigDecimal" maxLength="15" minLength="1" required="true" truncatable="false" xmltag="terms-discount-acount"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="TXI" truncatable="false" xmltag="tax-information">
+            <medi:field dataType="String" maxLength="2" minLength="2" required="true" truncatable="false" xmltag="tax-type-code"/>
+            <medi:field dataType="BigDecimal" maxLength="18" minLength="1" required="true" truncatable="false" xmltag="monetary-amount"/>
+            <medi:field dataType="String" maxLength="10" minLength="1" required="true" truncatable="false" xmltag="percentage"/>
+            <medi:field dataType="String" maxLength="2" minLength="2" required="true" truncatable="false" xmltag="tax-jurisdiction-code-qualifier"/>
+            <medi:field dataType="String" maxLength="10" minLength="1" required="true" truncatable="false" xmltag="tax-jurisdiction-code"/>
+            <medi:field dataType="String" maxLength="2" minLength="2" required="true" truncatable="false" xmltag="tax-jurisdiction-code-qualifier"/>
+            <medi:field dataType="String" maxLength="1" minLength="1" required="true" truncatable="false" xmltag="tax-exempt-code"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="ISS" truncatable="false" xmltag="invoice-shipment-summary">
+            <medi:field dataType="BigDecimal" maxLength="10" minLength="1" required="true" truncatable="false" xmltag="number-of-units-shipped"/>
+            <medi:field dataType="String" maxLength="2" minLength="2" required="true" truncatable="false" xmltag="number-uom"/>
+            <medi:field dataType="BigDecimal" maxLength="10" minLength="1" required="true" truncatable="false" xmltag="weight"/>
+            <medi:field dataType="String" maxLength="2" minLength="2" required="true" truncatable="false" xmltag="weight-uom"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="CTT" truncatable="false" xmltag="transaction-totals">
+            <medi:field dataType="BigInteger" maxLength="6" minLength="1" required="true" truncatable="false" xmltag="number-of-line-items"/>
+        </medi:segment>
+        <medi:segment ignoreUnmappedFields="false" maxOccurs="1" minOccurs="1" segcode="CTT" truncatable="false" xmltag="transaction-set-trailer">
+            <medi:field dataType="BigInteger" maxLength="6" minLength="1" required="true" truncatable="false" xmltag="segments-in-transaction"/>
+            <medi:field dataType="String" maxLength="9" minLength="4" required="true" truncatable="false" xmltag="transaction-set-control"/>
+        </medi:segment>
+    </medi:segments>
+</medi:edimap>
